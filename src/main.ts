@@ -11,7 +11,27 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <ul id="steps" class="step-wrapper px-8 py-10 flex flex-col gap-8">
 </ul>
 </div></section>
-<section></section>
+<section class="pt-12 relative">
+<form class="">
+<h1 class="text-[#022959] text-[2rem] font-bold">Personal info</h1>
+<p class="text-[#9699AA] mt-2 text-[1rem] form-text">Please provide your name, email address, and phone number.</p>
+<section class="mt-8">
+<div class="input-wrapper flex flex-col gap-2">
+<label class="text-[#022959] text-sm capitalize" for="name">name</label>
+<input type="text" id="name" class="border border-[#D6D9E6] rounded-xl"/>
+</div>
+<div class="input-wrapper flex flex-col gap-2 mt-6">
+<label class="text-[#022959] text-sm capitalize" for="email">email address</label>
+<input type="email" id="email" class="border border-[#D6D9E6] rounded-xl"/>
+</div>
+<div class="input-wrapper flex flex-col gap-2 mt-6">
+<label class="text-[#022959] text-sm capitalize" for="phoneNumber">Phone number</label>
+<input type="text" id="phoneNumber" class="border border-[#D6D9E6] rounded-xl"/>
+</div>
+</section>
+<button class="absolute bottom-8 right-0 h-12 w-[7.6875rem] bg-[#022959] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer">next step</button>
+</form>
+</section>
 </section>
 </main>
 `;
