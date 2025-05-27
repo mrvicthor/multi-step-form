@@ -20,13 +20,32 @@
   }
 
   input[type="text"],
-  input[type="email"] {
+  input[type="email"],
+  input[type="tel"] {
     width: 100%;
     padding: 12px 20px;
     box-sizing: border-box;
   }
 
   .input-wrapper {
+  }
+
+  input:invalid {
+    border: 1px solid #ee374a;
+  }
+
+  input:invalid:required {
+    border: 1px solid #ee374a;
+  }
+
+  .is-Active {
+    background: #bee2fd;
+    color: #022959;
+  }
+
+  .error {
+    color: #ee374a;
+    font-weight: bold;
   }
 }
 

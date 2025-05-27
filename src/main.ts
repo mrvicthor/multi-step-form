@@ -2,6 +2,7 @@ import "./style.css";
 import typescriptLogo from "./typescript.svg";
 import viteLogo from "/vite.svg";
 // import { setupCounter } from "./counter.ts";
+import { setStep, step } from "./form-handler";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <main class="flex items-center justify-center h-dvh">
@@ -17,19 +18,25 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <p class="text-[#9699AA] mt-2 text-[1rem] form-text">Please provide your name, email address, and phone number.</p>
 <section class="mt-8">
 <div class="input-wrapper flex flex-col gap-2">
-<label class="text-[#022959] text-sm capitalize" for="name">name</label>
-<input type="text" id="name" class="border border-[#D6D9E6] rounded-xl"/>
+<div class="flex justify-between">
+<label class="text-[#022959] text-sm capitalize" for="name" id="name-label">name</label> <span id="name-error" class="error" aria-live="polite"></span>
+</div>
+<input type="text" id="name" placeholder="e.g. Stephen King" class="border border-[#D6D9E6] text-[#022959] font-medium rounded-lg hover:border-[#483eff] cursor-pointer" required/>
 </div>
 <div class="input-wrapper flex flex-col gap-2 mt-6">
-<label class="text-[#022959] text-sm capitalize" for="email">email address</label>
-<input type="email" id="email" class="border border-[#D6D9E6] rounded-xl"/>
+<div class="flex justify-between">
+<label class="text-[#022959] text-sm capitalize" for="email" id="email-label">email address</label> <span id="email-error" class="error" aria-live="polite"></span>
+</div>
+<input type="email" placeholder="e.g. stephenking@lorem.com" id="email" class="border text-[#022959] font-medium border-[#D6D9E6] rounded-lg hover:border-[#483eff] cursor-pointer" required/>
 </div>
 <div class="input-wrapper flex flex-col gap-2 mt-6">
-<label class="text-[#022959] text-sm capitalize" for="phoneNumber">Phone number</label>
-<input type="text" id="phoneNumber" class="border border-[#D6D9E6] rounded-xl"/>
+<div class="flex justify-between">
+<label class="text-[#022959] text-sm capitalize" for="phoneNumber" id="phone-label">phone number</label> <span id="phone-error" class="error" aria-live="polite"></span>
+</div>
+<input type="tel" id="phoneNumber" placeholder="e.g. +1 234 567 890" class="border border-[#D6D9E6] text-[#022959] font-medium rounded-lg hover:border-[#483eff] cursor-pointer" required/>
 </div>
 </section>
-<button class="absolute bottom-8 right-0 h-12 w-[7.6875rem] bg-[#022959] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer">next step</button>
+<button id="next" class="absolute bottom-8 right-0 h-12 w-[7.6875rem] bg-[#022959] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer">next step</button>
 </form>
 </section>
 </section>
@@ -37,43 +44,4 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 `;
 
 // setupCounter(document.querySelector<HTMLButtonElement>("#counter")!);
-
-const list = [
-  { id: 1, step: 1, description: "your info" },
-  { id: 2, step: 2, description: "select plan" },
-  { id: 3, step: 3, description: "add-ons" },
-  { id: 4, step: 4, description: "summary" },
-];
-document.addEventListener("DOMContentLoaded", () => {
-  const steps = document.querySelector<HTMLUListElement>("#steps")!;
-  if (!steps) return;
-  for (let i = 0; i < list.length; i += 1) {
-    const step = list[i].step;
-    const description = list[i].description;
-    const li = document.createElement("li");
-    li.className = "flex gap-4";
-    li.innerHTML = `
-    <button class="bg-[#BEE2FD] h-8 w-8 rounded-full">${step}</button><article class="flex flex-col uppercase">
-  <span class="text-[#ABBCFF] text-xs">step ${step}</span>
-  <span class="text-white font-bold text-sm">${description}</span>
-  </article>
-    `;
-    steps.appendChild(li);
-  }
-});
-
-// <div>
-// <a href="https://vite.dev" target="_blank">
-//   <img src="${viteLogo}" class="logo" alt="Vite logo" />
-// </a>
-// <a href="https://www.typescriptlang.org/" target="_blank">
-//   <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-// </a>
-// <h1>Vite + TypeScript</h1>
-// <div class="card">
-//   <button id="counter" type="button"></button>
-// </div>
-// <p class="read-the-docs">
-//   Click on the Vite and TypeScript logos to learn more
-// </p>
-// </div>
+setStep(document.querySelector<HTMLButtonElement>("#next")!);
