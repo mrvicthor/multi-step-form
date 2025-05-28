@@ -26,6 +26,7 @@ export function setStep(element: HTMLButtonElement) {
   const phoneError = document.querySelector<HTMLSpanElement>("#phone-error")!;
   const emailRegExp = /^[\w.!#$%&'*+/=?^`{|}~-]+@[a-z\d-]+(?:\.[a-z\d-]+)*$/i;
   const phoneRegExp = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
+  const formSteps = document.querySelectorAll<HTMLElement>(".form-steps")!;
 
   const isValidEmail = () => {
     console.log("valid email");
@@ -95,6 +96,8 @@ export function setStep(element: HTMLButtonElement) {
     setIsValidInput(nameInput, nameError);
     updateError(nameInput, nameError, name, "This field is required");
   };
+
+  const setPrevStep = () => step - 1;
   const setNextStep = (count: number) => {
     const steps = document.querySelector<HTMLUListElement>("#steps")!;
     console.log(step, steps.children.length);
@@ -156,12 +159,24 @@ export function setStep(element: HTMLButtonElement) {
           }
         }
       });
+      initializeSteps(step);
       console.log("clicked", step, buttons);
     }
   });
+  const initializeSteps = (step: number) => {
+    formSteps.forEach((section) => {
+      const field = section.dataset.step;
+      if (Number(field) === step) {
+        section.classList.remove("hidden");
+      } else {
+        section.classList.add("hidden");
+      }
+    });
+  };
   name.addEventListener("input", handleNameInput);
   email.addEventListener("input", handleEmailInput);
   phoneNumber.addEventListener("input", handlePhoneInput);
+  //   initializeSteps(1);
   //   initializeValidation();
   setNextStep(1);
 }
