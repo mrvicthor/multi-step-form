@@ -42,53 +42,113 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <section class="form-steps" data-step="2">
 <p class="text-[#022959] text-[2rem] font-bold">Select your plan</p>
 <p class="text-[#9699AA] mt-2 text-[1rem] form-text">You have the option of monthly, or yearly billing.</p>
-<div data-plan="yearly" class="hidden mt-8 space-y-2 border border-amber-200">
-<div class="h-20  rounded-lg border border-[#D6D9E6] flex items-center justify-between px-4 gap-4 cursor-pointer">
-<input type="radio" class="hidden" name="plan" value="arcade"/>
-<img src="${arcadeLogo}" alt="arcade logo"/> <div class="mr-auto flex flex-col"><label class="text-[#022959] font-medium text-[1rem]">Arcade</label>
-<span class="text-[#9699AA] text-sm">$90/yr</span>
-</div> <span class="text-xs text-[#022959] font-light">2 months free</span>
+<div id="yearly-plan" data-plan="yearly" class=" mt-8 space-y-2 form-steps-plan hidden">
+<label class="cursor-pointer">
+  <input
+    type="radio"
+    name="plan"
+    value="arcade-yearly"
+    class="peer hidden"
+  />
+  
+  <div class="h-20 px-4 rounded-lg border border-[#D6D9E6] flex items-center gap-4 justify-between peer-checked:border-[#483EFF]">
+    <img src="${arcadeLogo}" class="h-10 w-10" alt="arcade logo" />
+    <div class="flex flex-col mr-auto">
+      <span class="text-[#022959] font-medium text-[1rem]">Arcade</span>
+      <span class="text-[#9699AA] text-sm">$90/yr</span>
+    </div>
+    <span class="text-xs text-[#022959] font-light">2 months free</span>
+  </div>
+</label>
+<label class="cursor-pointer">
+  <input
+    type="radio"
+    name="plan"
+    value="advanced-yearly"
+    class="peer hidden"
+  />
+  
+  <div class="h-20 px-4 rounded-lg border border-[#D6D9E6] flex items-center gap-4 mt-2 justify-between peer-checked:border-[#483EFF]">
+    <img src="${advancedLogo}" class="h-10 w-10" alt="advanced logo" />
+    <div class="flex flex-col mr-auto">
+      <span class="text-[#022959] font-medium text-[1rem]">Advanced</span>
+      <span class="text-[#9699AA] text-sm">$120/yr</span>
+    </div>
+    <span class="text-xs text-[#022959] font-light">2 months free</span>
+  </div>
+</label>
+<label class="cursor-pointer">
+  <input
+    type="radio"
+    name="plan"
+    value="pro-yearly"
+    class="peer hidden"
+  />
+  
+  <div class="h-20 px-4 rounded-lg border border-[#D6D9E6] flex mt-2 items-center gap-4 justify-between peer-checked:border-[#483EFF]">
+    <img src="${proLogo}" class="h-10 w-10" alt="pro logo" />
+    <div class="flex flex-col mr-auto">
+      <span class="text-[#022959] font-medium text-[1rem]">Pro</span>
+      <span class="text-[#9699AA] text-sm">$150/yr</span>
+    </div>
+    <span class="text-xs text-[#022959] font-light">2 months free</span>
+  </div>
+</label>
 </div>
-<div class="h-20 rounded-lg border border-[#D6D9E6] flex items-center justify-between px-4 gap-4 cursor-pointer">
-<input type="radio" class="hidden" name="plan" value="advanced"/>
-<img src="${advancedLogo}" alt="advanced logo"/> <div class="mr-auto flex flex-col"><label class="text-[#022959] font-medium text-[1rem]">Advanced</label>
-<span class="text-[#9699AA] text-sm">$90/yr</span>
-</div> <span class="text-xs text-[#022959] font-light">2 months free</span>
+<div id="monthly-plan" data-plan="monthly" class="mt-10 flex gap-[1.125rem] form-steps-plan">
+<label class="cursor-pointer">
+  <input
+    type="radio"
+    name="plan"
+    value="arcade-monthly"
+    class="peer hidden"
+  />
+  
+  <div class="h-[10rem] w-[8.625rem] py-[1.125rem] px-4 rounded-lg border border-[#D6D9E6] flex flex-col justify-between peer-checked:border-blue-500">
+    <img src="${arcadeLogo}" class="h-10 w-10" alt="pro logo" />
+    <div class="flex flex-col">
+      <span class="text-[#022959] font-medium text-[1rem]">Arcade</span>
+      <span class="text-[#9699AA] text-sm">$9/mo</span>
+    </div>
+  </div>
+</label>
+
+<label class="cursor-pointer">
+  <input
+    type="radio"
+    name="plan"
+    value="advanced-monthly"
+    class="peer hidden"
+  />
+  
+  <div class="h-[10rem] w-[8.625rem] py-[1.125rem] px-4 rounded-lg border border-[#D6D9E6] flex flex-col justify-between peer-checked:border-blue-500">
+    <img src="${advancedLogo}" class="h-10 w-10" alt="pro logo" />
+    <div class="flex flex-col">
+      <span class="text-[#022959] font-medium text-[1rem]">Advanced</span>
+      <span class="text-[#9699AA] text-sm">$12/mo</span>
+    </div>
+  </div>
+</label>
+
+<label class="cursor-pointer">
+  <input
+    type="radio"
+    name="plan"
+    value="pro-monthly"
+    class="peer hidden"
+  />
+  
+  <div class="h-[10rem] w-[8.625rem] py-[1.125rem] px-4 rounded-lg border border-[#D6D9E6] flex flex-col justify-between peer-checked:border-blue-500">
+    <img src="${proLogo}" class="h-10 w-10" alt="pro logo" />
+    <div class="flex flex-col">
+      <span class="text-[#022959] font-medium text-[1rem]">Pro</span>
+      <span class="text-[#9699AA] text-sm">$15/mo</span>
+    </div>
+  </div>
+</label>
+
 </div>
-<div class="h-20 rounded-lg border border-[#D6D9E6] flex items-center justify-between px-4 gap-4 cursor-pointer">
-<input type="radio" class="hidden" name="plan" value="pro"/>
-<img src="${proLogo}" alt="pro logo"/> <div class="mr-auto flex flex-col"><label class="text-[#022959] font-medium text-[1rem]">Pro</label>
-<span class="text-[#9699AA] text-sm">$90/yr</span>
-</div> <span class="text-xs text-[#022959] font-light">2 months free</span>
-</div>
-</div>
-<div data-plan="monthly" class="mt-10 flex gap-[1.125rem]">
-<div class="h-[10rem] w-[8.625rem] py-[1.125rem] px-4 rounded-lg border border-[#D6D9E6] flex flex-col justify-between">
-<input type="radio" class="hidden" name="plan" value="arcade" />
-<img src="${arcadeLogo}" class="h-10 w-10" alt="arcade logo"/>
-<div class="flex flex-col">
-<label class="text-[#022959] font-medium text-[1rem]">Arcade</label>
-<span class="text-[#9699AA] text-sm">$9/mo</span>
-</div>
-</div>
-<div class="h-[10rem] w-[8.625rem] py-[1.125rem] px-4 rounded-lg border border-[#D6D9E6] flex flex-col justify-between">
-<input type="radio" class="hidden" name="plan" value="arcade" />
-<img src="${advancedLogo}" class="h-10 w-10" alt="arcade logo"/>
-<div class="flex flex-col">
-<label class="text-[#022959] font-medium text-[1rem]">Advanced</label>
-<span class="text-[#9699AA] text-sm">$12/mo</span>
-</div>
-</div>
-<div class="h-[10rem] w-[8.625rem] py-[1.125rem] px-4 rounded-lg border border-[#D6D9E6] flex flex-col justify-between">
-<input type="radio" class="hidden" name="plan" value="arcade" />
-<img src="${proLogo}" class="h-10 w-10" alt="arcade logo"/>
-<div class="flex flex-col">
-<label class="text-[#022959] font-medium text-[1rem]">Pro</label>
-<span class="text-[#9699AA] text-sm">$15/mo</span>
-</div>
-</div>
-</div>
-<div class="bg-[#F8F9FF] h-12 flex items-center justify-center gap-6 mt-6 rounded-lg"><span class="font-bold capitalize">monthly</span><button id="toggle-plan" class="h-[1.25rem] w-[2.375rem] cursor-pointer bg-[#022959] rounded-xl flex items-center px-1"><span class="h-3 w-3 bg-white rounded-full inline-block transform transition-transform duration-700 ease-in-out"></span></button><span class="font-bold capitalize">yearly</span></div>
+<div class="bg-[#F8F9FF] h-12 flex items-center justify-center gap-6 mt-6 rounded-lg"><span class="font-bold capitalize">monthly</span><button id="toggle-plan" class="h-[1.25rem] w-[2.375rem] cursor-pointer bg-[#022959] rounded-xl flex items-center px-[3px]"><span class="dot h-3 w-3 bg-white rounded-full inline-block transform transition-transform duration-500 ease-in-out"></span></button><span class="font-bold capitalize">yearly</span></div>
 </section>
 <section class="form-steps" data-step="3">
 </section>
@@ -103,11 +163,24 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 
 // setupCounter(document.querySelector<HTMLButtonElement>("#counter")!);
 setStep(document.querySelector<HTMLButtonElement>("#next")!);
+const dot = document.querySelector<HTMLSpanElement>(".dot")!;
+const yearlyPlan = document.querySelector<HTMLDivElement>("#yearly-plan")!;
+const monthlyPlan = document.querySelector<HTMLDivElement>("#monthly-plan")!;
+let isYearly = false;
 document
   .querySelector<HTMLButtonElement>("#toggle-plan")!
   .addEventListener("click", (e) => {
+    isYearly = !isYearly;
+
     e.preventDefault();
-    const toggleBtn =
-      document.querySelector<HTMLButtonElement>("#toggle-plan")!;
-    toggleBtn.classList.toggle("justify-end");
+
+    if (isYearly) {
+      dot.classList.add("translate-x-5");
+      yearlyPlan.classList.remove("hidden");
+      monthlyPlan.classList.add("hidden");
+    } else {
+      dot.classList.remove("translate-x-5");
+      yearlyPlan.classList.add("hidden");
+      monthlyPlan.classList.remove("hidden");
+    }
   });
