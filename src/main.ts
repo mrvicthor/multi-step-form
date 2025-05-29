@@ -5,7 +5,8 @@ import arcadeLogo from "/images/icon-arcade.svg";
 import advancedLogo from "/images/icon-advanced.svg";
 import proLogo from "/images/icon-pro.svg";
 // import { setupCounter } from "./counter.ts";
-import { setStep } from "./form-handler";
+import { setStep, step } from "./form-handler";
+import { handleSelect } from "./handle-plan";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <main class="flex items-center justify-center h-dvh">
@@ -39,10 +40,10 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <input type="tel" id="phoneNumber" placeholder="e.g. +1 234 567 890" class="border border-[#D6D9E6] text-[#022959] font-medium rounded-lg hover:border-[#483eff] cursor-pointer" required/>
 </div>
 </section>
-<section class="form-steps" data-step="2">
+<section class="form-steps hidden" data-step="2">
 <p class="text-[#022959] text-[2rem] font-bold">Select your plan</p>
 <p class="text-[#9699AA] mt-2 text-[1rem] form-text">You have the option of monthly, or yearly billing.</p>
-<div id="yearly-plan" data-plan="yearly" class=" mt-8 space-y-2 form-steps-plan hidden">
+<div id="yearly-plan" data-plan="yearly" class="mt-8 form-steps-plan hidden">
 <label class="cursor-pointer">
   <input
     type="radio"
@@ -151,6 +152,30 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <div class="bg-[#F8F9FF] h-12 flex items-center justify-center gap-6 mt-6 rounded-lg"><span class="font-bold capitalize">monthly</span><button id="toggle-plan" class="h-[1.25rem] w-[2.375rem] cursor-pointer bg-[#022959] rounded-xl flex items-center px-[3px]"><span class="dot h-3 w-3 bg-white rounded-full inline-block transform transition-transform duration-500 ease-in-out"></span></button><span class="font-bold capitalize">yearly</span></div>
 </section>
 <section class="form-steps" data-step="3">
+<p class="text-[#022959] text-[2rem] font-bold">Select your plan</p>
+<p class="text-[#9699AA] mt-2 text-[1rem] form-text">You have the option of monthly, or yearly billing.</p>
+<div class="mt-8">
+<label class="cursor-pointer block">
+<div class="h-20 px-4 rounded-lg border border-[#D6D9E6] flex items-center gap-4 justify-between peer-checked:border-[#483EFF]">
+<div class="custom-checkbox">
+<input
+  type="checkbox"
+  name="add-Ons"
+  value="online-service"
+  class="peer"
+/>
+<span class="checkmark"></span>
+</div>
+    
+    <div class="flex flex-col mr-auto ml-6">
+      <span class="text-[#022959] font-medium text-[1rem]">Online service</span>
+      <span class="text-[#9699AA] text-sm">Access to multiplayer games</span>
+    </div>
+
+    <span class="text-xs text-[#483EFF] font-light">+$1/mo</span>
+  </div>
+</label>
+</div>
 </section>
 <section class="form-steps" data-step="4">
 </section>
@@ -163,24 +188,25 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 
 // setupCounter(document.querySelector<HTMLButtonElement>("#counter")!);
 setStep(document.querySelector<HTMLButtonElement>("#next")!);
-const dot = document.querySelector<HTMLSpanElement>(".dot")!;
-const yearlyPlan = document.querySelector<HTMLDivElement>("#yearly-plan")!;
-const monthlyPlan = document.querySelector<HTMLDivElement>("#monthly-plan")!;
-let isYearly = false;
-document
-  .querySelector<HTMLButtonElement>("#toggle-plan")!
-  .addEventListener("click", (e) => {
-    isYearly = !isYearly;
+handleSelect(document.querySelector<HTMLButtonElement>("#toggle-plan")!);
+// const dot = document.querySelector<HTMLSpanElement>(".dot")!;
+// const yearlyPlan = document.querySelector<HTMLDivElement>("#yearly-plan")!;
+// const monthlyPlan = document.querySelector<HTMLDivElement>("#monthly-plan")!;
+// let isYearly = false;
+// document
+//   .querySelector<HTMLButtonElement>("#toggle-plan")!
+//   .addEventListener("click", (e) => {
+//     isYearly = !isYearly;
+//     console.log(step);
+//     e.preventDefault();
 
-    e.preventDefault();
-
-    if (isYearly) {
-      dot.classList.add("translate-x-5");
-      yearlyPlan.classList.remove("hidden");
-      monthlyPlan.classList.add("hidden");
-    } else {
-      dot.classList.remove("translate-x-5");
-      yearlyPlan.classList.add("hidden");
-      monthlyPlan.classList.remove("hidden");
-    }
-  });
+//     if (isYearly) {
+//       dot.classList.add("translate-x-5");
+//       yearlyPlan.classList.remove("hidden");
+//       monthlyPlan.classList.add("hidden");
+//     } else {
+//       dot.classList.remove("translate-x-5");
+//       yearlyPlan.classList.add("hidden");
+//       monthlyPlan.classList.remove("hidden");
+//     }
+//   });
