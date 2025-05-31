@@ -130,6 +130,7 @@ export function setStep(element: HTMLButtonElement) {
   };
 
   element.addEventListener("click", (e) => {
+    console.log({ activeIndex, step });
     e.preventDefault();
     const emailInput = isValidEmail();
     const phoneInput = isValidPhoneNumber();
@@ -224,6 +225,7 @@ export function setStep(element: HTMLButtonElement) {
       document.querySelectorAll<HTMLButtonElement>(".steps-buttons")
     );
     activeIndex--;
+    step--;
     updateActiveButton(buttons, activeIndex);
     initializeSteps(activeIndex);
   });
