@@ -30,6 +30,8 @@
   .custom-checkbox {
     position: relative;
     cursor: pointer;
+    top: 2.375rem;
+    left: 1rem;
   }
 
   .custom-checkbox input {

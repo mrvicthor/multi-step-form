@@ -18,7 +18,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 </div></section>
 <section class="pt-12 relative">
 <form class="">
-<section class="form-steps hidden" data-step="1">
+<section class="form-steps" data-step="1">
 <h1 class="text-[#022959] text-[2rem] font-bold">Personal info</h1>
 <p class="text-[#9699AA] mt-2 text-[1rem] form-text">Please provide your name, email address, and phone number.</p>
 <div class="input-wrapper flex flex-col gap-2 mt-8">
@@ -149,37 +149,75 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 </label>
 
 </div>
-<div class="bg-[#F8F9FF] h-12 flex items-center justify-center gap-6 mt-6 rounded-lg"><span class="font-bold capitalize">monthly</span><button id="toggle-plan" class="h-[1.25rem] w-[2.375rem] cursor-pointer bg-[#022959] rounded-xl flex items-center px-[3px]"><span class="dot h-3 w-3 bg-white rounded-full inline-block transform transition-transform duration-500 ease-in-out"></span></button><span class="font-bold capitalize">yearly</span></div>
+<div class="bg-[#F8F9FF] h-12 flex items-center justify-center gap-6 mt-6 rounded-lg"><span id="monthly-text" class="font-bold capitalize">monthly</span><button id="toggle-plan" class="h-[1.25rem] w-[2.375rem] cursor-pointer bg-[#022959] rounded-xl flex items-center px-[3px]"><span class="dot h-3 w-3 bg-white rounded-full inline-block transform transition-transform duration-500 ease-in-out"></span></button><span id="yearly-text" class="font-bold capitalize">yearly</span></div>
 </section>
-<section class="form-steps" data-step="3">
-<p class="text-[#022959] text-[2rem] font-bold">Select your plan</p>
-<p class="text-[#9699AA] mt-2 text-[1rem] form-text">You have the option of monthly, or yearly billing.</p>
+<section class="form-steps hidden" data-step="3">
+<p class="text-[#022959] text-[2rem] font-bold">Pick add-ons</p>
+<p class="text-[#9699AA] mt-2 text-[1rem] form-text">Add-ons help enhance your gaming experience.</p>
 <div class="mt-8">
 <label class="cursor-pointer block">
-<div class="h-20 px-4 rounded-lg border border-[#D6D9E6] flex items-center gap-4 justify-between peer-checked:border-[#483EFF]">
-<div class="custom-checkbox">
+<div class="custom-checkbox peer">
 <input
   type="checkbox"
   name="add-Ons"
   value="online-service"
-  class="peer"
+  class=""
 />
 <span class="checkmark"></span>
 </div>
-    
-    <div class="flex flex-col mr-auto ml-6">
+    <div class="h-20 px-4 rounded-lg border border-[#D6D9E6] flex items-center gap-4 justify-between peer-has-checked:border-[#483EFF]">
+    <div class="flex flex-col mr-auto ml-10">
       <span class="text-[#022959] font-medium text-[1rem]">Online service</span>
       <span class="text-[#9699AA] text-sm">Access to multiplayer games</span>
     </div>
 
-    <span class="text-xs text-[#483EFF] font-light">+$1/mo</span>
+    <span id="online-price" class="text-xs text-[#483EFF] font-light">+$1/mo</span>
+  </div>
+</label>
+<label class="cursor-pointer block mt-4">
+<div class="custom-checkbox peer">
+<input
+  type="checkbox"
+  name="add-Ons"
+  value="larger-storage"
+  class=""
+/>
+<span class="checkmark"></span>
+</div>
+    <div class="h-20 px-4 rounded-lg border border-[#D6D9E6] flex items-center gap-4 justify-between peer-has-checked:border-[#483EFF]">
+    <div class="flex flex-col mr-auto ml-10">
+      <span class="text-[#022959] font-medium text-[1rem]">Larger storage</span>
+      <span class="text-[#9699AA] text-sm">Extra 1TB of cloud save</span>
+    </div>
+
+    <span id="larger-price" class="text-xs text-[#483EFF] font-light">+$2/mo</span>
+  </div>
+</label>
+<label class="cursor-pointer block mt-4">
+<div class="custom-checkbox peer">
+<input
+  type="checkbox"
+  name="add-Ons"
+  value="customizable-profile"
+  class=""
+/>
+<span class="checkmark"></span>
+</div>
+    <div class="h-20 px-4 rounded-lg border border-[#D6D9E6] flex items-center gap-4 justify-between peer-has-checked:border-[#483EFF]">
+    <div class="flex flex-col mr-auto ml-10">
+      <span class="text-[#022959] font-medium text-[1rem]">Customizable profile</span>
+      <span class="text-[#9699AA] text-sm">Custom theme on your profile</span>
+    </div>
+
+    <span id="customizable-price" class="text-xs text-[#483EFF] font-light">+$2/mo</span>
   </div>
 </label>
 </div>
 </section>
 <section class="form-steps" data-step="4">
 </section>
-<button id="next" class="absolute bottom-8 right-0 h-12 w-[7.6875rem] bg-[#022959] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer">next step</button>
+<div class="absolute bottom-8 flex justify-between w-full"><button id="prevBtn" class="capitalize text-[#9699AA] cursor-pointer hover:text-[#022959] text-[1rem] hidden">go back</button><button></button><button id="next" class="h-12 w-[7.6875rem] bg-[#022959] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer">next step</button></div>
+
 </form>
 </section>
 </section>
@@ -189,24 +227,3 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 // setupCounter(document.querySelector<HTMLButtonElement>("#counter")!);
 setStep(document.querySelector<HTMLButtonElement>("#next")!);
 handleSelect(document.querySelector<HTMLButtonElement>("#toggle-plan")!);
-// const dot = document.querySelector<HTMLSpanElement>(".dot")!;
-// const yearlyPlan = document.querySelector<HTMLDivElement>("#yearly-plan")!;
-// const monthlyPlan = document.querySelector<HTMLDivElement>("#monthly-plan")!;
-// let isYearly = false;
-// document
-//   .querySelector<HTMLButtonElement>("#toggle-plan")!
-//   .addEventListener("click", (e) => {
-//     isYearly = !isYearly;
-//     console.log(step);
-//     e.preventDefault();
-
-//     if (isYearly) {
-//       dot.classList.add("translate-x-5");
-//       yearlyPlan.classList.remove("hidden");
-//       monthlyPlan.classList.add("hidden");
-//     } else {
-//       dot.classList.remove("translate-x-5");
-//       yearlyPlan.classList.add("hidden");
-//       monthlyPlan.classList.remove("hidden");
-//     }
-//   });

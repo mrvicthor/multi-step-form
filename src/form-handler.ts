@@ -1,4 +1,5 @@
 export let step = 1;
+export let activeIndex = 1;
 type FormData = {
   name: string;
   email: string;
@@ -11,10 +12,10 @@ type FormData = {
 };
 
 const list = [
-  { id: 1, step: 1, description: "your info" },
-  { id: 2, step: 2, description: "select plan" },
-  { id: 3, step: 3, description: "add-ons" },
-  { id: 4, step: 4, description: "summary" },
+  { id: 1, index: 1, description: "your info" },
+  { id: 2, index: 2, description: "select plan" },
+  { id: 3, index: 3, description: "add-ons" },
+  { id: 4, index: 4, description: "summary" },
 ];
 
 export function setStep(element: HTMLButtonElement) {
@@ -27,7 +28,7 @@ export function setStep(element: HTMLButtonElement) {
   const emailRegExp = /^[\w.!#$%&'*+/=?^`{|}~-]+@[a-z\d-]+(?:\.[a-z\d-]+)*$/i;
   const phoneRegExp = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
   const formSteps = document.querySelectorAll<HTMLElement>(".form-steps")!;
-
+  const prevBtn = document.querySelector<HTMLButtonElement>("#prevBtn")!;
   const isValidEmail = () => {
     console.log("valid email");
     const validity = email.value.length !== 0 && emailRegExp.test(email.value);
@@ -97,15 +98,13 @@ export function setStep(element: HTMLButtonElement) {
     updateError(nameInput, nameError, name, "This field is required");
   };
 
-  const setPrevStep = () => step - 1;
   const setNextStep = (count: number) => {
     const steps = document.querySelector<HTMLUListElement>("#steps")!;
-    console.log(step, steps.children.length);
     if (step === 1) {
       if (!steps) return;
       if (steps.children.length === 0) {
         for (let i = 0; i < list.length; i += 1) {
-          const step = list[i].step;
+          const step = list[i].index;
           const description = list[i].description;
           const li = document.createElement("li");
           li.className = "flex gap-4";
@@ -120,7 +119,7 @@ export function setStep(element: HTMLButtonElement) {
         const buttons =
           document.querySelectorAll<HTMLButtonElement>(".steps-buttons")!;
         buttons.forEach((button) =>
-          Number(button.innerHTML) === step
+          Number(button.innerHTML) === activeIndex
             ? button.classList.add("bg-[#BEE2FD]", "text-[#022959]")
             : button.classList.add("border", "border-white", "text-white")
         );
@@ -138,31 +137,74 @@ export function setStep(element: HTMLButtonElement) {
     const buttons = Array.from(
       document.querySelectorAll<HTMLButtonElement>(".steps-buttons")
     );
-    if (!emailInput || !phoneInput || !nameInput) {
-      // updateError(nameInput, nameError, name, "This field is required");
-      return;
-    } else {
+
+    if (step === 1) {
+      if (!emailInput || !phoneInput || !nameInput) {
+        updateError(nameInput, nameError, name, "This field is required");
+        updateError(emailInput, emailError, email, "This field is required");
+        updateError(
+          phoneInput,
+          phoneError,
+          phoneNumber,
+          "This field is required"
+        );
+      }
       setNextStep(step + 1);
-      buttons.forEach((button) => {
-        if (Number(button.innerHTML) === step) {
-          if (button.classList.contains("text-white")) {
-            button.classList.remove("text-white");
-            button.classList.remove("border");
-            button.classList.remove("border-white");
-          }
-          button.classList.add("bg-[#BEE2FD]", "text-[#022959]");
-        } else {
-          if (button.classList.contains("bg-[#BEE2FD]")) {
-            button.classList.remove("bg-[#BEE2FD]");
-            button.classList.remove("text-[#022959]");
-            button.classList.add("border", "border-white", "text-white");
+      activeIndex++;
+      //   setNextIndex();
+      updateActiveButton(buttons, activeIndex);
+      initializeSteps(activeIndex);
+      prevBtn.classList.remove("hidden");
+    } else if (step === 2) {
+      const customizablePrice = document.querySelector("#customizable-price")!;
+      const largerPrice = document.querySelector("#larger-price")!;
+      const onlinePrice = document.querySelector("#online-price")!;
+      document.getElementsByName("plan").forEach((plan) => {
+        if (plan instanceof HTMLInputElement) {
+          if (plan.checked) {
+            if (plan.value.includes("yearly")) {
+              onlinePrice.textContent = "+$10/yr";
+              largerPrice.textContent = "+$20/yr";
+              customizablePrice.textContent = "+$20/yr";
+            } else {
+              onlinePrice.textContent = "+$1/mo";
+              largerPrice.textContent = "+$2/mo";
+              customizablePrice.textContent = "+$2/mo";
+            }
+            console.log(plan.value, step);
+            setNextStep(step + 1);
+            activeIndex++;
+            updateActiveButton(buttons, activeIndex);
+            initializeSteps(activeIndex);
+          } else {
+            console.log("please choose an option");
           }
         }
       });
-      initializeSteps(step);
-      console.log("clicked", step, buttons);
+    } else if (step === 3) {
+    } else if (step === 4) {
     }
   });
+
+  const updateActiveButton = (buttons: HTMLButtonElement[], value: number) => {
+    buttons.forEach((button) => {
+      if (Number(button.innerHTML) === value) {
+        if (button.classList.contains("text-white")) {
+          button.classList.remove("text-white");
+          button.classList.remove("border");
+          button.classList.remove("border-white");
+        }
+        button.classList.add("bg-[#BEE2FD]", "text-[#022959]");
+      } else {
+        if (button.classList.contains("bg-[#BEE2FD]")) {
+          button.classList.remove("bg-[#BEE2FD]");
+          button.classList.remove("text-[#022959]");
+          button.classList.add("border", "border-white", "text-white");
+        }
+      }
+    });
+  };
+
   const initializeSteps = (step: number) => {
     formSteps.forEach((section) => {
       const field = section.dataset.step;
@@ -176,6 +218,15 @@ export function setStep(element: HTMLButtonElement) {
   name.addEventListener("input", handleNameInput);
   email.addEventListener("input", handleEmailInput);
   phoneNumber.addEventListener("input", handlePhoneInput);
+  prevBtn.addEventListener("click", (event) => {
+    event.preventDefault();
+    const buttons = Array.from(
+      document.querySelectorAll<HTMLButtonElement>(".steps-buttons")
+    );
+    activeIndex--;
+    updateActiveButton(buttons, activeIndex);
+    initializeSteps(activeIndex);
+  });
   //   initializeSteps(1);
   //   initializeValidation();
   setNextStep(1);
