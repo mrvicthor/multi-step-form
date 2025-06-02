@@ -44,6 +44,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <p class="text-[#022959] text-[2rem] font-bold">Select your plan</p>
 <p class="text-[#9699AA] mt-2 text-[1rem] form-text">You have the option of monthly, or yearly billing.</p>
 <div id="yearly-plan" data-plan="yearly" class="mt-8 form-steps-plan hidden">
+<span id="plan-error" class="error" aria-live="polite"></span>
 <label class="cursor-pointer">
   <input
     type="radio"

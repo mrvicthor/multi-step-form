@@ -25,10 +25,12 @@ export function setStep(element: HTMLButtonElement) {
   const emailError = document.querySelector<HTMLSpanElement>("#email-error")!;
   const nameError = document.querySelector<HTMLSpanElement>("#name-error")!;
   const phoneError = document.querySelector<HTMLSpanElement>("#phone-error")!;
+  const planError = document.querySelector<HTMLSpanElement>("#plan-error")!;
   const emailRegExp = /^[\w.!#$%&'*+/=?^`{|}~-]+@[a-z\d-]+(?:\.[a-z\d-]+)*$/i;
   const phoneRegExp = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
   const formSteps = document.querySelectorAll<HTMLElement>(".form-steps")!;
   const prevBtn = document.querySelector<HTMLButtonElement>("#prevBtn")!;
+  let myPlan = "";
   const isValidEmail = () => {
     console.log("valid email");
     const validity = email.value.length !== 0 && emailRegExp.test(email.value);
@@ -135,12 +137,14 @@ export function setStep(element: HTMLButtonElement) {
     const emailInput = isValidEmail();
     const phoneInput = isValidPhoneNumber();
     const nameInput = name.value.length !== 0;
+    console.log({ emailInput, phoneInput, nameInput });
     const buttons = Array.from(
       document.querySelectorAll<HTMLButtonElement>(".steps-buttons")
     );
 
     if (step === 1) {
       if (!emailInput || !phoneInput || !nameInput) {
+        console.log("here");
         updateError(nameInput, nameError, name, "This field is required");
         updateError(emailInput, emailError, email, "This field is required");
         updateError(
@@ -149,10 +153,11 @@ export function setStep(element: HTMLButtonElement) {
           phoneNumber,
           "This field is required"
         );
+        return;
       }
+
       setNextStep(step + 1);
       activeIndex++;
-      //   setNextIndex();
       updateActiveButton(buttons, activeIndex);
       initializeSteps(activeIndex);
       prevBtn.classList.remove("hidden");
@@ -163,6 +168,8 @@ export function setStep(element: HTMLButtonElement) {
       document.getElementsByName("plan").forEach((plan) => {
         if (plan instanceof HTMLInputElement) {
           if (plan.checked) {
+            myPlan = plan.value;
+
             if (plan.value.includes("yearly")) {
               onlinePrice.textContent = "+$10/yr";
               largerPrice.textContent = "+$20/yr";
@@ -172,13 +179,18 @@ export function setStep(element: HTMLButtonElement) {
               largerPrice.textContent = "+$2/mo";
               customizablePrice.textContent = "+$2/mo";
             }
-            console.log(plan.value, step);
+            console.log(plan.value, step, myPlan);
             setNextStep(step + 1);
             activeIndex++;
             updateActiveButton(buttons, activeIndex);
             initializeSteps(activeIndex);
           } else {
-            console.log("please choose an option");
+            planError.textContent = "Please choose an option";
+            planError.setAttribute("class", "error");
+            plan.addEventListener("change", () => {
+              planError.textContent = "";
+              planError.removeAttribute("class");
+            });
           }
         }
       });
