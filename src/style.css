@@ -15,10 +15,6 @@
 }
 
 @layer components {
-  .form-text {
-    width: 35ch;
-  }
-
   input[type="text"],
   input[type="email"],
   input[type="tel"] {
@@ -92,9 +88,40 @@
     color: #022959;
   }
 
+  .form-text {
+    width: full;
+  }
+
+  #yearly-plan {
+    display: flex;
+    flex-direction: row;
+  }
+
   .error {
     color: #ee374a;
     font-weight: bold;
+  }
+  @media screen and (min-width: 30rem) and (max-width: 64rem) {
+    .form-text {
+      width: 45ch;
+      color: #ee374a;
+    }
+    #yearly-plan {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+  }
+
+  @media screen and (max-width: 30rem) {
+    .form-text {
+      width: 25ch;
+    }
+    #yearly-plan {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
   }
 }
 

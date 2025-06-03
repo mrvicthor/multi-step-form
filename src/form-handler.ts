@@ -26,11 +26,17 @@ export function setStep(element: HTMLButtonElement) {
   const nameError = document.querySelector<HTMLSpanElement>("#name-error")!;
   const phoneError = document.querySelector<HTMLSpanElement>("#phone-error")!;
   const planError = document.querySelector<HTMLSpanElement>("#plan-error")!;
+  const addOnsError = document.querySelector<HTMLSpanElement>("#addOns-error")!;
   const emailRegExp = /^[\w.!#$%&'*+/=?^`{|}~-]+@[a-z\d-]+(?:\.[a-z\d-]+)*$/i;
   const phoneRegExp = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
   const formSteps = document.querySelectorAll<HTMLElement>(".form-steps")!;
-  const prevBtn = document.querySelector<HTMLButtonElement>("#prevBtn")!;
+  const prevBtnDesktop =
+    document.querySelector<HTMLButtonElement>("#prevBtn-desktop")!;
+  const prevBtnMobile =
+    document.querySelector<HTMLButtonElement>("#prevBtn-mobile")!;
+  const previousButon = prevBtnDesktop ? prevBtnDesktop : prevBtnMobile;
   let myPlan = "";
+  let myAddOns: string[] = [];
   const isValidEmail = () => {
     console.log("valid email");
     const validity = email.value.length !== 0 && emailRegExp.test(email.value);
@@ -54,7 +60,6 @@ export function setStep(element: HTMLButtonElement) {
     field: HTMLInputElement,
     message: string
   ) => {
-    console.log("triggered");
     if (isValid) {
       value.textContent = "";
       value.removeAttribute("class");
@@ -111,7 +116,7 @@ export function setStep(element: HTMLButtonElement) {
           const li = document.createElement("li");
           li.className = "flex gap-4";
           li.innerHTML = `
-              <button class="h-8 w-8 rounded-full steps-buttons">${step}</button><article class="flex flex-col uppercase">
+              <button class="h-8 w-8 rounded-full steps-buttons">${step}</button><article class="hidden md:flex flex-col uppercase">
             <span class="text-[#ABBCFF] text-xs">step ${step}</span>
             <span class="text-white font-bold text-sm">${description}</span>
             </article>
@@ -151,7 +156,7 @@ export function setStep(element: HTMLButtonElement) {
           phoneInput,
           phoneError,
           phoneNumber,
-          "This field is required"
+          "Please enter a valid phone number"
         );
         return;
       }
@@ -160,7 +165,8 @@ export function setStep(element: HTMLButtonElement) {
       activeIndex++;
       updateActiveButton(buttons, activeIndex);
       initializeSteps(activeIndex);
-      prevBtn.classList.remove("hidden");
+      previousButon.classList.remove("hidden");
+      prevBtnMobile.classList.remove("hidden");
     } else if (step === 2) {
       const customizablePrice = document.querySelector("#customizable-price")!;
       const largerPrice = document.querySelector("#larger-price")!;
@@ -179,7 +185,6 @@ export function setStep(element: HTMLButtonElement) {
               largerPrice.textContent = "+$2/mo";
               customizablePrice.textContent = "+$2/mo";
             }
-            console.log(plan.value, step, myPlan);
             setNextStep(step + 1);
             activeIndex++;
             updateActiveButton(buttons, activeIndex);
@@ -195,6 +200,25 @@ export function setStep(element: HTMLButtonElement) {
         }
       });
     } else if (step === 3) {
+      const addOns = document.querySelectorAll('input[name="add-Ons"]');
+      addOns.forEach((option) => {
+        if (option instanceof HTMLInputElement) {
+          if (option.checked) {
+            myAddOns.push(option.value);
+            setNextStep(step + 1);
+            activeIndex++;
+            updateActiveButton(buttons, activeIndex);
+            initializeSteps(activeIndex);
+          } else {
+            addOnsError.textContent = "Please select at least one option";
+            addOnsError.setAttribute("class", "error");
+            option.addEventListener("change", () => {
+              addOnsError.textContent = "";
+              addOnsError.removeAttribute("class");
+            });
+          }
+        }
+      });
     } else if (step === 4) {
     }
   });
@@ -231,7 +255,18 @@ export function setStep(element: HTMLButtonElement) {
   name.addEventListener("input", handleNameInput);
   email.addEventListener("input", handleEmailInput);
   phoneNumber.addEventListener("input", handlePhoneInput);
-  prevBtn.addEventListener("click", (event) => {
+
+  previousButon.addEventListener("click", (event) => {
+    event.preventDefault();
+    const buttons = Array.from(
+      document.querySelectorAll<HTMLButtonElement>(".steps-buttons")
+    );
+    activeIndex--;
+    step--;
+    updateActiveButton(buttons, activeIndex);
+    initializeSteps(activeIndex);
+  });
+  prevBtnMobile.addEventListener("click", (event) => {
     event.preventDefault();
     const buttons = Array.from(
       document.querySelectorAll<HTMLButtonElement>(".steps-buttons")

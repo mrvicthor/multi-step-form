@@ -1,25 +1,23 @@
 import "./style.css";
-import typescriptLogo from "./typescript.svg";
-import viteLogo from "/vite.svg";
 import arcadeLogo from "/images/icon-arcade.svg";
 import advancedLogo from "/images/icon-advanced.svg";
 import proLogo from "/images/icon-pro.svg";
 // import { setupCounter } from "./counter.ts";
-import { setStep, step } from "./form-handler";
+import { setStep } from "./form-handler";
 import { handleSelect } from "./handle-plan";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
-<main class="flex items-center justify-center h-dvh">
-<section class="bg-white w-[58.75rem] h-[37.5rem] rounded-2xl shadow-xl grid grid-cols-[19.125rem_1fr] gap-[5.25rem] pr-[6.25rem]">
-<section class="p-4">
-<div class="bg-[url('/images/bg-sidebar-desktop.svg')] h-full bg-cover">
-<ul id="steps" class="step-wrapper px-8 py-10 flex flex-col gap-8">
+<main class="relative md:flex md:items-center md:justify-center h-dvh">
+<section class="md:bg-white w-full md:mx-10 sm:min-w-[42.875rem] lg:w-[58.75rem] h-full md:h-[37.5rem] rounded-2xl shadow-xl grid md:grid-cols-[14.875rem_1fr] lg:grid-cols-[19.125rem_1fr] md:gap-[2.625rem] lg:gap-[5.25rem] md:pr-[3.625rem] lg:pr-[6.25rem]">
+<section class="col-span-1 md:p-4">
+<div class="bg-[url('/images/bg-sidebar-mobile.svg')] md:bg-[url('/images/bg-sidebar-desktop.svg')] h-[10.75rem] md:h-full bg-cover md:rounded-lg">
+<ul id="steps" class="step-wrapper px-8 py-10 flex items-center md:items-start justify-center md:flex-col gap-8">
 </ul>
 </div></section>
-<section class="pt-12 relative">
+<section class="pt-8 pb-8 md:pb-0 px-6 md:px-0 md:pt-12 absolute w-[90%] md:w-full top-[12%] -translate-x-[50%] left-[50%] md:left-0 md:translate-x-0 md:relative rounded-lg bg-white md:bg-transparent md:top-0">
 <form class="">
 <section class="form-steps" data-step="1">
-<h1 class="text-[#022959] text-[2rem] font-bold">Personal info</h1>
+<h1 class="text-[#022959] text-2xl md:text-[2rem] font-bold">Personal info</h1>
 <p class="text-[#9699AA] mt-2 text-[1rem] form-text">Please provide your name, email address, and phone number.</p>
 <div class="input-wrapper flex flex-col gap-2 mt-8">
 <div class="flex justify-between">
@@ -41,11 +39,11 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 </div>
 </section>
 <section class="form-steps hidden" data-step="2">
-<p class="text-[#022959] text-[2rem] font-bold">Select your plan</p>
+<p class="text-[#022959] text-2xl md:text-[2rem] font-bold">Select your plan</p>
 <p class="text-[#9699AA] mt-2 text-[1rem] form-text">You have the option of monthly, or yearly billing.</p>
-<div id="yearly-plan" data-plan="yearly" class="mt-8 form-steps-plan hidden">
-<span id="plan-error" class="error" aria-live="polite"></span>
-<label class="cursor-pointer">
+<span id="plan-error" class="error mt-2" aria-live="polite"></span>
+<div id="yearly-plan" data-plan="yearly" class="mt-8 form-steps-plan hidden lg:space-x-4">
+<label class="cursor-pointer block">
   <input
     type="radio"
     name="plan"
@@ -53,16 +51,16 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     class="peer hidden"
   />
   
-  <div class="h-20 px-4 rounded-lg border border-[#D6D9E6] flex items-center gap-4 justify-between peer-checked:border-[#483EFF]">
+  <div class="h-20 px-4 lg:h-[10rem] lg:w-[8.625rem] w-full lg:py-[1.125rem] rounded-lg border border-[#D6D9E6] flex items-center lg:items-start lg:gap-0 lg:flex-col gap-4 justify-between peer-checked:border-[#483EFF]">
     <img src="${arcadeLogo}" class="h-10 w-10" alt="arcade logo" />
     <div class="flex flex-col mr-auto">
       <span class="text-[#022959] font-medium text-[1rem]">Arcade</span>
-      <span class="text-[#9699AA] text-sm">$90/yr</span>
+      <span class="text-[#9699AA] text-sm">$90/yr</span> 
     </div>
     <span class="text-xs text-[#022959] font-light">2 months free</span>
   </div>
 </label>
-<label class="cursor-pointer">
+<label class="cursor-pointer block">
   <input
     type="radio"
     name="plan"
@@ -70,7 +68,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     class="peer hidden"
   />
   
-  <div class="h-20 px-4 rounded-lg border border-[#D6D9E6] flex items-center gap-4 mt-2 justify-between peer-checked:border-[#483EFF]">
+  <div class="h-20 px-4 lg:h-[10rem] lg:w-[8.625rem] w-full lg:py-[1.125rem] rounded-lg border border-[#D6D9E6] flex items-center lg:items-start lg:gap-0 lg:flex-col gap-4 justify-between peer-checked:border-[#483EFF]">
     <img src="${advancedLogo}" class="h-10 w-10" alt="advanced logo" />
     <div class="flex flex-col mr-auto">
       <span class="text-[#022959] font-medium text-[1rem]">Advanced</span>
@@ -79,7 +77,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     <span class="text-xs text-[#022959] font-light">2 months free</span>
   </div>
 </label>
-<label class="cursor-pointer">
+<label class="cursor-pointer block">
   <input
     type="radio"
     name="plan"
@@ -87,7 +85,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     class="peer hidden"
   />
   
-  <div class="h-20 px-4 rounded-lg border border-[#D6D9E6] flex mt-2 items-center gap-4 justify-between peer-checked:border-[#483EFF]">
+  <div class="h-20 px-4 lg:h-[10rem] lg:w-[8.625rem] w-full lg:py-[1.125rem] rounded-lg border border-[#D6D9E6] flex items-center lg:items-start lg:gap-0 lg:flex-col gap-4 justify-between peer-checked:border-[#483EFF]">
     <img src="${proLogo}" class="h-10 w-10" alt="pro logo" />
     <div class="flex flex-col mr-auto">
       <span class="text-[#022959] font-medium text-[1rem]">Pro</span>
@@ -97,8 +95,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   </div>
 </label>
 </div>
-<div id="monthly-plan" data-plan="monthly" class="mt-10 flex gap-[1.125rem] form-steps-plan">
-<label class="cursor-pointer">
+<div id="monthly-plan" data-plan="monthly" class="mt-10 flex gap-[1.125rem] flex-col lg:flex-row form-steps-plan">
+<label class="cursor-pointer block">
   <input
     type="radio"
     name="plan"
@@ -106,16 +104,16 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     class="peer hidden"
   />
   
-  <div class="h-[10rem] w-[8.625rem] py-[1.125rem] px-4 rounded-lg border border-[#D6D9E6] flex flex-col justify-between peer-checked:border-blue-500">
+  <div class="h-20 px-4 lg:h-[10rem] lg:w-[8.625rem] w-full lg:py-[1.125rem] rounded-lg border border-[#D6D9E6] flex items-center lg:items-start lg:gap-0 lg:flex-col gap-4 justify-between peer-checked:border-[#483EFF]">
     <img src="${arcadeLogo}" class="h-10 w-10" alt="pro logo" />
-    <div class="flex flex-col">
+    <div class="flex flex-col mr-auto">
       <span class="text-[#022959] font-medium text-[1rem]">Arcade</span>
       <span class="text-[#9699AA] text-sm">$9/mo</span>
     </div>
   </div>
 </label>
 
-<label class="cursor-pointer">
+<label class="cursor-pointer block">
   <input
     type="radio"
     name="plan"
@@ -123,16 +121,16 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     class="peer hidden"
   />
   
-  <div class="h-[10rem] w-[8.625rem] py-[1.125rem] px-4 rounded-lg border border-[#D6D9E6] flex flex-col justify-between peer-checked:border-blue-500">
+  <div class="h-20 px-4 lg:h-[10rem] lg:w-[8.625rem] w-full lg:py-[1.125rem] rounded-lg border border-[#D6D9E6] flex items-center lg:items-start lg:gap-0 lg:flex-col gap-4 justify-between peer-checked:border-[#483EFF]">
     <img src="${advancedLogo}" class="h-10 w-10" alt="pro logo" />
-    <div class="flex flex-col">
+    <div class="flex flex-col mr-auto">
       <span class="text-[#022959] font-medium text-[1rem]">Advanced</span>
       <span class="text-[#9699AA] text-sm">$12/mo</span>
     </div>
   </div>
 </label>
 
-<label class="cursor-pointer">
+<label class="cursor-pointer block">
   <input
     type="radio"
     name="plan"
@@ -140,9 +138,9 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     class="peer hidden"
   />
   
-  <div class="h-[10rem] w-[8.625rem] py-[1.125rem] px-4 rounded-lg border border-[#D6D9E6] flex flex-col justify-between peer-checked:border-blue-500">
+  <div class="h-20 px-4 lg:h-[10rem] lg:w-[8.625rem] w-full lg:py-[1.125rem] rounded-lg border border-[#D6D9E6] flex items-center lg:items-start lg:gap-0 lg:flex-col gap-4 justify-between peer-checked:border-[#483EFF]">
     <img src="${proLogo}" class="h-10 w-10" alt="pro logo" />
-    <div class="flex flex-col">
+    <div class="flex flex-col mr-auto">
       <span class="text-[#022959] font-medium text-[1rem]">Pro</span>
       <span class="text-[#9699AA] text-sm">$15/mo</span>
     </div>
@@ -153,9 +151,10 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <div class="bg-[#F8F9FF] h-12 flex items-center justify-center gap-6 mt-6 rounded-lg"><span id="monthly-text" class="font-bold capitalize">monthly</span><button id="toggle-plan" class="h-[1.25rem] w-[2.375rem] cursor-pointer bg-[#022959] rounded-xl flex items-center px-[3px]"><span class="dot h-3 w-3 bg-white rounded-full inline-block transform transition-transform duration-500 ease-in-out"></span></button><span id="yearly-text" class="font-bold capitalize">yearly</span></div>
 </section>
 <section class="form-steps hidden" data-step="3">
-<p class="text-[#022959] text-[2rem] font-bold">Pick add-ons</p>
+<p class="text-[#022959] text-2xl md:text-[2rem] font-bold">Pick add-ons</p>
 <p class="text-[#9699AA] mt-2 text-[1rem] form-text">Add-ons help enhance your gaming experience.</p>
 <div class="mt-8">
+<span id="addOns-error" class="error" aria-live="polite"></span>
 <label class="cursor-pointer block">
 <div class="custom-checkbox peer">
 <input
@@ -215,16 +214,22 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 </label>
 </div>
 </section>
-<section class="form-steps" data-step="4">
+<section class="form-steps hidden" data-step="4">
+<p class="text-[#022959] text-2xl md:text-[2rem] font-bold">Finishing up</p>
+<p class="text-[#9699AA] mt-2 text-[1rem] form-text">Double-check everything looks OK before confirming.</p>
 </section>
-<div class="absolute bottom-8 flex justify-between w-full"><button id="prevBtn" class="capitalize text-[#9699AA] cursor-pointer hover:text-[#022959] text-[1rem] hidden">go back</button><button></button><button id="next" class="h-12 w-[7.6875rem] bg-[#022959] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer">next step</button></div>
+<div class="hidden left-0 md:absolute md:bottom-8 md:flex justify-between w-full"><button id="prevBtn-desktop" class="capitalize text-[#9699AA] cursor-pointer hover:text-[#022959] text-[1rem] hidden">go back</button><button></button><button id="next-desktop" class="h-12 w-[7.6875rem] bg-[#022959] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer">next step</button></div>
 
 </form>
 </section>
+<div class="fixed bg-white left-0 md:hidden bottom-0 h-[4.5rem] flex justify-between items-center px-6 w-full"><button id="prevBtn-mobile" class="capitalize text-[#9699AA] cursor-pointer hover:text-[#022959] text-[1rem] hidden">go back</button><button></button><button id="next-mobile" class="h-12 w-[7.6875rem] bg-[#022959] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer">next step</button></div>
+
 </section>
 </main>
 `;
 
 // setupCounter(document.querySelector<HTMLButtonElement>("#counter")!);
-setStep(document.querySelector<HTMLButtonElement>("#next")!);
+
+setStep(document.querySelector<HTMLButtonElement>("#next-desktop")!);
+setStep(document.querySelector<HTMLButtonElement>("#next-mobile")!);
 handleSelect(document.querySelector<HTMLButtonElement>("#toggle-plan")!);
