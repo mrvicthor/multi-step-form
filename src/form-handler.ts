@@ -3,16 +3,6 @@ import { formatPlanText, formatPrice, matchPlan } from "./matchPlan";
 export let step = 1;
 export let activeIndex = 1;
 export let width = window.innerWidth;
-type FormData = {
-  name: string;
-  email: string;
-  phoneNumber: string;
-  plan: {
-    name: string;
-    price: number;
-  };
-  addOns: [{ name: string; price: number }];
-};
 
 const list = [
   { id: 1, index: 1, description: "your info" },
