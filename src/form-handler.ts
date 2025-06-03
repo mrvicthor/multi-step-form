@@ -50,17 +50,19 @@ export function setStep(element: HTMLButtonElement) {
     document.querySelector<HTMLButtonElement>("#prevBtn-desktop")!;
   const prevBtnMobile =
     document.querySelector<HTMLButtonElement>("#prevBtn-mobile")!;
+  const confirmationPage =
+    document.querySelector<HTMLDivElement>(".confirmation-page")!;
+  const summaryPage = document.querySelector<HTMLDivElement>(".summary-page")!;
 
+  let hasConfirmed = false;
   let myPlan = "";
   let myAddOns: string[] = [];
   const isValidEmail = () => {
-    console.log("valid email");
     const validity = email.value.length !== 0 && emailRegExp.test(email.value);
     return validity;
   };
 
   const isValidPhoneNumber = () => {
-    console.log("valid phone");
     const validity =
       phoneNumber.value.length !== 0 && phoneRegExp.test(phoneNumber.value);
     return validity;
@@ -87,15 +89,6 @@ export function setStep(element: HTMLButtonElement) {
       field.classList.remove("border-[#d6d9e6]");
       field.classList.add("border-[#ee374a]");
     }
-  };
-
-  const initializeValidation = () => {
-    const emailInput = isValidEmail();
-    const phoneInput = isValidPhoneNumber();
-    const nameInput = name.value.length !== 0;
-    setIsValidInput(emailInput, email);
-    setIsValidInput(phoneInput, phoneNumber);
-    setIsValidInput(nameInput, name);
   };
 
   const handleEmailInput = () => {
@@ -177,7 +170,6 @@ export function setStep(element: HTMLButtonElement) {
   };
 
   element.addEventListener("click", (e) => {
-    console.log({ activeIndex, step, window });
     e.preventDefault();
     const emailInput = isValidEmail();
     const phoneInput = isValidPhoneNumber();
@@ -243,15 +235,21 @@ export function setStep(element: HTMLButtonElement) {
         }
       });
     } else if (step === 3) {
-      getAddons(buttons);
-      let priceSummary = 0;
-      nextBtnDesktop.classList.add("hidden");
-      nextBtnMobile.classList.add("hidden");
-      if (width < 768) {
-        confirmBtnMobile.classList.remove("hidden");
+      if (myAddOns.length !== 0) {
+        console.log("victor");
+        setNextStep(step + 1);
+        activeIndex++;
+        updateActiveButton(buttons, activeIndex);
+        initializeSteps(activeIndex);
+        addOnSummary.innerHTML = "";
       } else {
-        confirmBtnDesktop.classList.remove("hidden");
+        getAddons(buttons);
       }
+      let priceSummary = 0;
+      nextBtnDesktop.style.backgroundColor = "#483EFF";
+      nextBtnDesktop.textContent = "Confirm";
+      nextBtnMobile.textContent = "Confirm";
+      nextBtnMobile.style.backgroundColor = "#483EFF";
       planText.textContent = formatPlanText(myPlan);
       planPrice.textContent =
         "$" + myPlan.includes("yearly")
@@ -275,7 +273,17 @@ export function setStep(element: HTMLButtonElement) {
         "$" + myPlan.includes("yearly")
           ? totalCost.toString() + "/yr"
           : totalCost.toString() + "/mo";
+      confirmationPage.classList.add("hidden");
     } else if (step === 4) {
+      hasConfirmed = true;
+      if (hasConfirmed) {
+        summaryPage.classList.add("hidden");
+        confirmationPage.classList.remove("hidden");
+        prevBtnDesktop.classList.add("hidden");
+        prevBtnMobile.classList.add("hidden");
+        nextBtnDesktop.classList.add("hidden");
+        nextBtnMobile.classList.add("hidden");
+      }
     }
   });
 
@@ -302,7 +310,6 @@ export function setStep(element: HTMLButtonElement) {
     formSteps.forEach((section) => {
       const field = section.dataset.step;
       if (Number(field) === step) {
-        console.log({ field });
         section.classList.remove("hidden");
       } else {
         section.classList.add("hidden");
@@ -328,6 +335,11 @@ export function setStep(element: HTMLButtonElement) {
     if (activeIndex === 3 && myAddOns.length !== 0) {
       addOnsError.textContent = "";
       addOnsError.removeAttribute("class");
+      if (width < 768) {
+        nextBtnMobile.classList.remove("hidden");
+      } else {
+        nextBtnDesktop.classList.remove("hidden");
+      }
     }
     initializeSteps(activeIndex);
   });
@@ -348,10 +360,15 @@ export function setStep(element: HTMLButtonElement) {
       addOnsError.removeAttribute("class");
       confirmBtnDesktop.classList.add("hidden");
       confirmBtnMobile.classList.add("hidden");
+      if (width < 768) {
+        nextBtnMobile.classList.remove("hidden");
+      } else {
+        nextBtnDesktop.classList.remove("hidden");
+      }
     }
+
     initializeSteps(activeIndex);
   });
-  //   initializeSteps(1);
-  //   initializeValidation();
+
   setNextStep(1);
 }

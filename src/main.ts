@@ -2,8 +2,8 @@ import "./style.css";
 import arcadeLogo from "/images/icon-arcade.svg";
 import advancedLogo from "/images/icon-advanced.svg";
 import proLogo from "/images/icon-pro.svg";
-// import { setupCounter } from "./counter.ts";
-import { setStep, width } from "./form-handler";
+import thankyouLogo from "/images/icon-thank-you.svg";
+import { setStep } from "./form-handler";
 import { handleSelect } from "./handle-plan";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
@@ -15,7 +15,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 </ul>
 </div></section>
 <section class="pt-8 pb-8 md:pb-0 px-6 md:px-0 md:pt-12 absolute w-[90%] md:w-full top-[12%] -translate-x-[50%] left-[50%] md:left-0 md:translate-x-0 md:relative rounded-lg bg-white md:bg-transparent md:top-0">
-<form class="">
+<form class="h-full">
 <section class="form-steps" data-step="1">
 <h1 class="text-[#022959] text-2xl md:text-[2rem] font-bold">Personal info</h1>
 <p class="text-[#9699AA] mt-2 text-[1rem] form-text">Please provide your name, email address, and phone number.</p>
@@ -214,7 +214,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 </label>
 </div>
 </section>
-<section class="form-steps hidden" data-step="4">
+<section class="form-steps hidden h-full" data-step="4">
+<div class="summary-page">
 <p class="text-[#022959] text-2xl md:text-[2rem] font-bold">Finishing up</p>
 <p class="text-[#9699AA] mt-2 text-[1rem] form-text">Double-check everything looks OK before confirming.</p>
 <div class="mt-8">
@@ -236,12 +237,22 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 </div>
 </article>
 </div>
+</div>
+<div class="confirmation-page flex items-center justify-center h-full">
+<div class="flex flex-col items-center h-[14.875rem] gap-8">
+<img src="${thankyouLogo}" alt="confirmation logo" class="h-14 w-14 lg:h-20 lg:w-20"/>
+<article class="text-center">
+<h1 class="text-[#022959] font-bold text-2xl lg:text-[2rem]">Thank you!</h1>
+<p class="text-[1rem] text-[#9699AA]">Thanks for confirming your subscription! We hope you have fun using our platform. If you ever need support, please feel free to email us at support@loremgaming.com.</p>
+</article>
+</div>
+</div>
 </section>
-<div class="hidden left-0 md:absolute md:bottom-8 md:flex justify-between w-full"><button id="prevBtn-desktop" class="capitalize text-[#9699AA] cursor-pointer hover:text-[#022959] text-[1rem] hidden">go back</button><button></button><button id="next-desktop" class="h-12 w-[7.6875rem] bg-[#022959] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer next-step-btn">next step</button><button id="confirm-desktop" class="h-12 w-[7.6875rem] bg-[#483EFF] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer hidden">confirm</button></div>
+<div class="hidden left-0 md:absolute md:bottom-8 md:flex justify-between w-full"><button id="prevBtn-desktop" class="capitalize text-[#9699AA] cursor-pointer hover:text-[#022959] text-[1rem] hidden">go back</button><button></button><button id="next-desktop" class="h-12 w-[7.6875rem] bg-[#022959] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer next-step-btn">next step</button></div>
 
 </form>
 </section>
-<div class="fixed bg-white left-0 md:hidden bottom-0 h-[4.5rem] flex justify-between items-center px-6 w-full"><button id="prevBtn-mobile" class="capitalize text-[#9699AA] cursor-pointer hover:text-[#022959] text-[1rem] hidden">go back</button><button></button><button id="next-mobile" class="h-12 w-[7.6875rem] bg-[#022959] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer next-step-btn">next step</button><button id="confirm-mobile" class="h-12 w-[7.6875rem] bg-[#483EFF] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer hidden">confirm</button></div>
+<div class="fixed bg-white left-0 md:hidden bottom-0 h-[4.5rem] flex justify-between items-center px-6 w-full"><button id="prevBtn-mobile" class="capitalize text-[#9699AA] cursor-pointer hover:text-[#022959] text-[1rem] hidden">go back</button><button></button><button id="next-mobile" class="h-12 w-[7.6875rem] bg-[#022959] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer next-step-btn">next step</button></div>
 
 </section>
 </main>
@@ -254,9 +265,7 @@ nextButtons.forEach((btn) => {
     setStep(document.querySelector<HTMLButtonElement>(`#${btn.id}`)!);
   }
 });
-// setStep(document.querySelector<HTMLButtonElement>("#next-mobile")!);
 
-// setStep(document.querySelector<HTMLButtonElement>("#next-desktop")!);
 // setupCounter(document.querySelector<HTMLButtonElement>("#counter")!);
 
 handleSelect(document.querySelector<HTMLButtonElement>("#toggle-plan")!);

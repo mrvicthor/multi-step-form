@@ -14,7 +14,6 @@ export const matchPlan = (value: string) => {
     Advanced: 12,
     Pro: 15,
   };
-  console.log(2, value, plan, yearlyPlanRecord[plan], monthlyPlanRecord[plan]);
 
   return value.includes("yearly")
     ? yearlyPlanRecord[plan]
