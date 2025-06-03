@@ -3,7 +3,7 @@ import arcadeLogo from "/images/icon-arcade.svg";
 import advancedLogo from "/images/icon-advanced.svg";
 import proLogo from "/images/icon-pro.svg";
 // import { setupCounter } from "./counter.ts";
-import { setStep } from "./form-handler";
+import { setStep, width } from "./form-handler";
 import { handleSelect } from "./handle-plan";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
@@ -47,7 +47,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <input
     type="radio"
     name="plan"
-    value="arcade-yearly"
+    value="Arcade yearly"
     class="peer hidden"
   />
   
@@ -64,7 +64,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <input
     type="radio"
     name="plan"
-    value="advanced-yearly"
+    value="Advanced yearly"
     class="peer hidden"
   />
   
@@ -81,7 +81,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <input
     type="radio"
     name="plan"
-    value="pro-yearly"
+    value="Pro yearly"
     class="peer hidden"
   />
   
@@ -100,7 +100,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <input
     type="radio"
     name="plan"
-    value="arcade-monthly"
+    value="Arcade monthly"
     class="peer hidden"
   />
   
@@ -117,7 +117,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <input
     type="radio"
     name="plan"
-    value="advanced-monthly"
+    value="Advanced monthly"
     class="peer hidden"
   />
   
@@ -134,7 +134,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <input
     type="radio"
     name="plan"
-    value="pro-monthly"
+    value="Pro monthly"
     class="peer hidden"
   />
   
@@ -160,7 +160,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <input
   type="checkbox"
   name="add-Ons"
-  value="online-service"
+  value="Online service"
   class=""
 />
 <span class="checkmark"></span>
@@ -179,7 +179,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <input
   type="checkbox"
   name="add-Ons"
-  value="larger-storage"
+  value="Larger storage"
   class=""
 />
 <span class="checkmark"></span>
@@ -198,7 +198,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <input
   type="checkbox"
   name="add-Ons"
-  value="customizable-profile"
+  value="Customizable profile"
   class=""
 />
 <span class="checkmark"></span>
@@ -217,19 +217,46 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <section class="form-steps hidden" data-step="4">
 <p class="text-[#022959] text-2xl md:text-[2rem] font-bold">Finishing up</p>
 <p class="text-[#9699AA] mt-2 text-[1rem] form-text">Double-check everything looks OK before confirming.</p>
+<div class="mt-8">
+<article>
+<div class="bg-[#f8f9ff] py-5 px-6 rounded-lg space-y-4">
+<div class="flex justify-between items-center">
+<div class="flex flex-col gap-2">
+<span id="plan-text" class="text-[#022959] font-medium text-[1rem]"></span>
+<span class="text-sm text-[#9699AA]">Change</span>
+</div><span id="plan-amount" class="text-[#022959] font-bold text-[1rem]"></span>
+</div>
+<div class="h-[2px] bg-[#9699AA] w-full"></div>
+<ul id="add-ons-list" class="flex flex-col gap-4">
+</ul>
+</div>
+<div class="flex justify-between mt-8 px-6">
+<span class="text-sm text-[#9699AA]">Total (per month)</span>
+<span id="total" class="font-bold text-xl text-[#483EFF]"></span>
+</div>
+</article>
+</div>
 </section>
-<div class="hidden left-0 md:absolute md:bottom-8 md:flex justify-between w-full"><button id="prevBtn-desktop" class="capitalize text-[#9699AA] cursor-pointer hover:text-[#022959] text-[1rem] hidden">go back</button><button></button><button id="next-desktop" class="h-12 w-[7.6875rem] bg-[#022959] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer">next step</button></div>
+<div class="hidden left-0 md:absolute md:bottom-8 md:flex justify-between w-full"><button id="prevBtn-desktop" class="capitalize text-[#9699AA] cursor-pointer hover:text-[#022959] text-[1rem] hidden">go back</button><button></button><button id="next-desktop" class="h-12 w-[7.6875rem] bg-[#022959] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer next-step-btn">next step</button><button id="confirm-desktop" class="h-12 w-[7.6875rem] bg-[#483EFF] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer hidden">confirm</button></div>
 
 </form>
 </section>
-<div class="fixed bg-white left-0 md:hidden bottom-0 h-[4.5rem] flex justify-between items-center px-6 w-full"><button id="prevBtn-mobile" class="capitalize text-[#9699AA] cursor-pointer hover:text-[#022959] text-[1rem] hidden">go back</button><button></button><button id="next-mobile" class="h-12 w-[7.6875rem] bg-[#022959] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer">next step</button></div>
+<div class="fixed bg-white left-0 md:hidden bottom-0 h-[4.5rem] flex justify-between items-center px-6 w-full"><button id="prevBtn-mobile" class="capitalize text-[#9699AA] cursor-pointer hover:text-[#022959] text-[1rem] hidden">go back</button><button></button><button id="next-mobile" class="h-12 w-[7.6875rem] bg-[#022959] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer next-step-btn">next step</button><button id="confirm-mobile" class="h-12 w-[7.6875rem] bg-[#483EFF] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer hidden">confirm</button></div>
 
 </section>
 </main>
 `;
 
+const nextButtons =
+  document.querySelectorAll<HTMLButtonElement>(".next-step-btn");
+nextButtons.forEach((btn) => {
+  if (btn.offsetParent) {
+    setStep(document.querySelector<HTMLButtonElement>(`#${btn.id}`)!);
+  }
+});
+// setStep(document.querySelector<HTMLButtonElement>("#next-mobile")!);
+
+// setStep(document.querySelector<HTMLButtonElement>("#next-desktop")!);
 // setupCounter(document.querySelector<HTMLButtonElement>("#counter")!);
 
-setStep(document.querySelector<HTMLButtonElement>("#next-desktop")!);
-setStep(document.querySelector<HTMLButtonElement>("#next-mobile")!);
 handleSelect(document.querySelector<HTMLButtonElement>("#toggle-plan")!);

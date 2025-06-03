@@ -1,5 +1,8 @@
+import { formatPlanText, formatPrice, matchPlan } from "./matchPlan";
+
 export let step = 1;
 export let activeIndex = 1;
+export let width = window.innerWidth;
 type FormData = {
   name: string;
   email: string;
@@ -30,11 +33,24 @@ export function setStep(element: HTMLButtonElement) {
   const emailRegExp = /^[\w.!#$%&'*+/=?^`{|}~-]+@[a-z\d-]+(?:\.[a-z\d-]+)*$/i;
   const phoneRegExp = /^(\+\d{1,2}\s?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}$/;
   const formSteps = document.querySelectorAll<HTMLElement>(".form-steps")!;
+  const nextBtnDesktop =
+    document.querySelector<HTMLButtonElement>("#next-desktop")!;
+  const nextBtnMobile =
+    document.querySelector<HTMLButtonElement>("#next-mobile")!;
+  const confirmBtnDesktop =
+    document.querySelector<HTMLButtonElement>("#confirm-desktop")!;
+  const confirmBtnMobile =
+    document.querySelector<HTMLButtonElement>("#confirm-mobile")!;
+  const planText = document.querySelector<HTMLSpanElement>("#plan-text")!;
+  const planPrice = document.querySelector<HTMLSpanElement>("#plan-amount")!;
+  const addOnSummary =
+    document.querySelector<HTMLUListElement>("#add-ons-list")!;
+  const total = document.querySelector<HTMLSpanElement>("#total")!;
   const prevBtnDesktop =
     document.querySelector<HTMLButtonElement>("#prevBtn-desktop")!;
   const prevBtnMobile =
     document.querySelector<HTMLButtonElement>("#prevBtn-mobile")!;
-  const previousButon = prevBtnDesktop ? prevBtnDesktop : prevBtnMobile;
+
   let myPlan = "";
   let myAddOns: string[] = [];
   const isValidEmail = () => {
@@ -136,20 +152,42 @@ export function setStep(element: HTMLButtonElement) {
     step = count;
   };
 
+  const getAddons = (buttons: HTMLButtonElement[]) => {
+    const addOns = document.querySelectorAll('input[name="add-Ons"]');
+    addOns.forEach((option) => {
+      if (option instanceof HTMLInputElement) {
+        if (option.checked) {
+          myAddOns.push(option.value);
+          if (myAddOns.length === 1) {
+            setNextStep(step + 1);
+            activeIndex++;
+          }
+          updateActiveButton(buttons, activeIndex);
+          initializeSteps(activeIndex);
+        } else {
+          addOnsError.textContent = "Please select at least one option";
+          addOnsError.setAttribute("class", "error");
+          option.addEventListener("change", () => {
+            addOnsError.textContent = "";
+            addOnsError.removeAttribute("class");
+          });
+        }
+      }
+    });
+  };
+
   element.addEventListener("click", (e) => {
-    console.log({ activeIndex, step });
+    console.log({ activeIndex, step, window });
     e.preventDefault();
     const emailInput = isValidEmail();
     const phoneInput = isValidPhoneNumber();
     const nameInput = name.value.length !== 0;
-    console.log({ emailInput, phoneInput, nameInput });
     const buttons = Array.from(
       document.querySelectorAll<HTMLButtonElement>(".steps-buttons")
     );
 
     if (step === 1) {
       if (!emailInput || !phoneInput || !nameInput) {
-        console.log("here");
         updateError(nameInput, nameError, name, "This field is required");
         updateError(emailInput, emailError, email, "This field is required");
         updateError(
@@ -165,8 +203,12 @@ export function setStep(element: HTMLButtonElement) {
       activeIndex++;
       updateActiveButton(buttons, activeIndex);
       initializeSteps(activeIndex);
-      previousButon.classList.remove("hidden");
-      prevBtnMobile.classList.remove("hidden");
+      width = window.innerWidth;
+      if (width < 768) {
+        prevBtnMobile.classList.remove("hidden");
+      } else {
+        prevBtnDesktop.classList.remove("hidden");
+      }
     } else if (step === 2) {
       const customizablePrice = document.querySelector("#customizable-price")!;
       const largerPrice = document.querySelector("#larger-price")!;
@@ -187,6 +229,7 @@ export function setStep(element: HTMLButtonElement) {
             }
             setNextStep(step + 1);
             activeIndex++;
+            width = window.innerWidth;
             updateActiveButton(buttons, activeIndex);
             initializeSteps(activeIndex);
           } else {
@@ -200,25 +243,38 @@ export function setStep(element: HTMLButtonElement) {
         }
       });
     } else if (step === 3) {
-      const addOns = document.querySelectorAll('input[name="add-Ons"]');
-      addOns.forEach((option) => {
-        if (option instanceof HTMLInputElement) {
-          if (option.checked) {
-            myAddOns.push(option.value);
-            setNextStep(step + 1);
-            activeIndex++;
-            updateActiveButton(buttons, activeIndex);
-            initializeSteps(activeIndex);
-          } else {
-            addOnsError.textContent = "Please select at least one option";
-            addOnsError.setAttribute("class", "error");
-            option.addEventListener("change", () => {
-              addOnsError.textContent = "";
-              addOnsError.removeAttribute("class");
-            });
-          }
-        }
+      getAddons(buttons);
+      let priceSummary = 0;
+      nextBtnDesktop.classList.add("hidden");
+      nextBtnMobile.classList.add("hidden");
+      if (width < 768) {
+        confirmBtnMobile.classList.remove("hidden");
+      } else {
+        confirmBtnDesktop.classList.remove("hidden");
+      }
+      planText.textContent = formatPlanText(myPlan);
+      planPrice.textContent =
+        "$" + myPlan.includes("yearly")
+          ? matchPlan(myPlan) + "/yr"
+          : matchPlan(myPlan) + "/mo";
+      myAddOns.forEach((item) => {
+        const li = document.createElement("li");
+        li.className = "flex justify-between";
+        priceSummary += formatPrice(myPlan, item);
+        const price =
+          "$" + myPlan.includes("yearly")
+            ? formatPrice(myPlan, item) + "/yr"
+            : formatPrice(myPlan, item) + "/mo";
+        li.innerHTML = `
+           <span class="text-sm text-[#9699AA] capitalize">${item}</span><span class="text-[#022959] text-sm font-light">+${price}</span>
+           `;
+        addOnSummary.appendChild(li);
       });
+      const totalCost = priceSummary + matchPlan(myPlan);
+      total.textContent =
+        "$" + myPlan.includes("yearly")
+          ? totalCost.toString() + "/yr"
+          : totalCost.toString() + "/mo";
     } else if (step === 4) {
     }
   });
@@ -246,6 +302,7 @@ export function setStep(element: HTMLButtonElement) {
     formSteps.forEach((section) => {
       const field = section.dataset.step;
       if (Number(field) === step) {
+        console.log({ field });
         section.classList.remove("hidden");
       } else {
         section.classList.add("hidden");
@@ -256,7 +313,7 @@ export function setStep(element: HTMLButtonElement) {
   email.addEventListener("input", handleEmailInput);
   phoneNumber.addEventListener("input", handlePhoneInput);
 
-  previousButon.addEventListener("click", (event) => {
+  prevBtnDesktop.addEventListener("click", (event) => {
     event.preventDefault();
     const buttons = Array.from(
       document.querySelectorAll<HTMLButtonElement>(".steps-buttons")
@@ -264,6 +321,14 @@ export function setStep(element: HTMLButtonElement) {
     activeIndex--;
     step--;
     updateActiveButton(buttons, activeIndex);
+    if (activeIndex === 2 && myPlan) {
+      planError.textContent = "";
+      planError.removeAttribute("class");
+    }
+    if (activeIndex === 3 && myAddOns.length !== 0) {
+      addOnsError.textContent = "";
+      addOnsError.removeAttribute("class");
+    }
     initializeSteps(activeIndex);
   });
   prevBtnMobile.addEventListener("click", (event) => {
@@ -274,6 +339,16 @@ export function setStep(element: HTMLButtonElement) {
     activeIndex--;
     step--;
     updateActiveButton(buttons, activeIndex);
+    if (activeIndex === 2 && myPlan) {
+      planError.textContent = "";
+      planError.removeAttribute("class");
+    }
+    if (activeIndex === 3 && myAddOns.length !== 0) {
+      addOnsError.textContent = "";
+      addOnsError.removeAttribute("class");
+      confirmBtnDesktop.classList.add("hidden");
+      confirmBtnMobile.classList.add("hidden");
+    }
     initializeSteps(activeIndex);
   });
   //   initializeSteps(1);
