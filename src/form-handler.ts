@@ -237,9 +237,11 @@ export function setStep(element: HTMLButtonElement) {
       }
       let priceSummary = 0;
       nextBtnDesktop.style.backgroundColor = "#483EFF";
+      nextBtnDesktop.classList.add("hover:[#928CFF]");
       nextBtnDesktop.textContent = "Confirm";
       nextBtnMobile.textContent = "Confirm";
       nextBtnMobile.style.backgroundColor = "#483EFF";
+      nextBtnMobile.classList.add("hover:[#928CFF]");
       planText.textContent = formatPlanText(myPlan);
       planPrice.textContent =
         "$" + myPlan.includes("yearly")

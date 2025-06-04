@@ -51,7 +51,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     class="peer hidden"
   />
   
-  <div class="h-20 px-4 lg:h-[10rem] lg:w-[8.625rem] w-full lg:py-[1.125rem] rounded-lg border border-[#D6D9E6] flex items-center lg:items-start lg:gap-0 lg:flex-col gap-4 justify-between peer-checked:border-[#483EFF]">
+  <div class="h-20 px-4 lg:h-[10rem] lg:w-[8.625rem] w-full lg:py-[1.125rem] hover:border-[#483EFF] rounded-lg border border-[#D6D9E6] flex items-center lg:items-start lg:gap-0 lg:flex-col gap-4 justify-between peer-checked:border-[#483EFF]">
     <img src="${arcadeLogo}" class="h-10 w-10" alt="arcade logo" />
     <div class="flex flex-col mr-auto">
       <span class="text-[#022959] font-medium text-[1rem]">Arcade</span>
@@ -68,7 +68,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     class="peer hidden"
   />
   
-  <div class="h-20 px-4 lg:h-[10rem] lg:w-[8.625rem] w-full lg:py-[1.125rem] rounded-lg border border-[#D6D9E6] flex items-center lg:items-start lg:gap-0 lg:flex-col gap-4 justify-between peer-checked:border-[#483EFF]">
+  <div class="h-20 px-4 lg:h-[10rem] lg:w-[8.625rem] w-full lg:py-[1.125rem] hover:border-[#483EFF] rounded-lg border border-[#D6D9E6] flex items-center lg:items-start lg:gap-0 lg:flex-col gap-4 justify-between peer-checked:border-[#483EFF]">
     <img src="${advancedLogo}" class="h-10 w-10" alt="advanced logo" />
     <div class="flex flex-col mr-auto">
       <span class="text-[#022959] font-medium text-[1rem]">Advanced</span>
@@ -85,7 +85,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     class="peer hidden"
   />
   
-  <div class="h-20 px-4 lg:h-[10rem] lg:w-[8.625rem] w-full lg:py-[1.125rem] rounded-lg border border-[#D6D9E6] flex items-center lg:items-start lg:gap-0 lg:flex-col gap-4 justify-between peer-checked:border-[#483EFF]">
+  <div class="h-20 px-4 lg:h-[10rem] lg:w-[8.625rem] w-full lg:py-[1.125rem] hover:border-[#483EFF] rounded-lg border border-[#D6D9E6] flex items-center lg:items-start lg:gap-0 lg:flex-col gap-4 justify-between peer-checked:border-[#483EFF]">
     <img src="${proLogo}" class="h-10 w-10" alt="pro logo" />
     <div class="flex flex-col mr-auto">
       <span class="text-[#022959] font-medium text-[1rem]">Pro</span>
@@ -104,7 +104,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     class="peer hidden"
   />
   
-  <div class="h-20 px-4 lg:h-[10rem] lg:w-[8.625rem] w-full lg:py-[1.125rem] rounded-lg border border-[#D6D9E6] flex items-center lg:items-start lg:gap-0 lg:flex-col gap-4 justify-between peer-checked:border-[#483EFF]">
+  <div class="h-20 px-4 lg:h-[10rem] lg:w-[8.625rem] w-full lg:py-[1.125rem] hover:border-[#483EFF] rounded-lg border border-[#D6D9E6] flex items-center lg:items-start lg:gap-0 lg:flex-col gap-4 justify-between peer-checked:border-[#483EFF]">
     <img src="${arcadeLogo}" class="h-10 w-10" alt="pro logo" />
     <div class="flex flex-col mr-auto">
       <span class="text-[#022959] font-medium text-[1rem]">Arcade</span>
@@ -121,7 +121,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     class="peer hidden"
   />
   
-  <div class="h-20 px-4 lg:h-[10rem] lg:w-[8.625rem] w-full lg:py-[1.125rem] rounded-lg border border-[#D6D9E6] flex items-center lg:items-start lg:gap-0 lg:flex-col gap-4 justify-between peer-checked:border-[#483EFF]">
+  <div class="h-20 px-4 lg:h-[10rem] lg:w-[8.625rem] w-full lg:py-[1.125rem] hover:border-[#483EFF] rounded-lg border border-[#D6D9E6] flex items-center lg:items-start lg:gap-0 lg:flex-col gap-4 justify-between peer-checked:border-[#483EFF]">
     <img src="${advancedLogo}" class="h-10 w-10" alt="pro logo" />
     <div class="flex flex-col mr-auto">
       <span class="text-[#022959] font-medium text-[1rem]">Advanced</span>
@@ -138,7 +138,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     class="peer hidden"
   />
   
-  <div class="h-20 px-4 lg:h-[10rem] lg:w-[8.625rem] w-full lg:py-[1.125rem] rounded-lg border border-[#D6D9E6] flex items-center lg:items-start lg:gap-0 lg:flex-col gap-4 justify-between peer-checked:border-[#483EFF]">
+  <div class="h-20 px-4 lg:h-[10rem] lg:w-[8.625rem] w-full lg:py-[1.125rem] hover:border-[#483EFF] rounded-lg border border-[#D6D9E6] flex items-center lg:items-start lg:gap-0 lg:flex-col gap-4 justify-between peer-checked:border-[#483EFF]">
     <img src="${proLogo}" class="h-10 w-10" alt="pro logo" />
     <div class="flex flex-col mr-auto">
       <span class="text-[#022959] font-medium text-[1rem]">Pro</span>
@@ -165,7 +165,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 />
 <span class="checkmark"></span>
 </div>
-    <div class="h-20 px-4 rounded-lg border border-[#D6D9E6] flex items-center gap-4 justify-between peer-has-checked:border-[#483EFF]">
+    <div class="h-20 px-4 rounded-lg border border-[#D6D9E6] hover:border-[#483EFF] flex items-center gap-4 justify-between peer-has-checked:border-[#483EFF]">
     <div class="flex flex-col mr-auto ml-10">
       <span class="text-[#022959] font-medium text-[1rem]">Online service</span>
       <span class="text-[#9699AA] text-sm">Access to multiplayer games</span>
@@ -184,7 +184,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 />
 <span class="checkmark"></span>
 </div>
-    <div class="h-20 px-4 rounded-lg border border-[#D6D9E6] flex items-center gap-4 justify-between peer-has-checked:border-[#483EFF]">
+    <div class="h-20 px-4 rounded-lg border border-[#D6D9E6] hover:border-[#483EFF] flex items-center gap-4 justify-between peer-has-checked:border-[#483EFF]">
     <div class="flex flex-col mr-auto ml-10">
       <span class="text-[#022959] font-medium text-[1rem]">Larger storage</span>
       <span class="text-[#9699AA] text-sm">Extra 1TB of cloud save</span>
@@ -203,7 +203,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 />
 <span class="checkmark"></span>
 </div>
-    <div class="h-20 px-4 rounded-lg border border-[#D6D9E6] flex items-center gap-4 justify-between peer-has-checked:border-[#483EFF]">
+    <div class="h-20 px-4 rounded-lg border border-[#D6D9E6] hover:border-[#483EFF] flex items-center gap-4 justify-between peer-has-checked:border-[#483EFF]">
     <div class="flex flex-col mr-auto ml-10">
       <span class="text-[#022959] font-medium text-[1rem]">Customizable profile</span>
       <span class="text-[#9699AA] text-sm">Custom theme on your profile</span>
@@ -224,7 +224,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <div class="flex justify-between items-center">
 <div class="flex flex-col gap-2">
 <span id="plan-text" class="text-[#022959] font-medium text-[1rem]"></span>
-<span class="text-sm text-[#9699AA]">Change</span>
+<span class="text-sm text-[#9699AA] cursor-pointer hover:text-[#483EFF]">Change</span>
 </div><span id="plan-amount" class="text-[#022959] font-bold text-[1rem]"></span>
 </div>
 <div class="h-[2px] bg-[#9699AA] w-full"></div>
@@ -248,11 +248,11 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 </div>
 </div>
 </section>
-<div class="hidden left-0 md:absolute md:bottom-8 md:flex justify-between w-full"><button id="prevBtn-desktop" class="capitalize text-[#9699AA] cursor-pointer hover:text-[#022959] text-[1rem] hidden">go back</button><button></button><button id="next-desktop" class="h-12 w-[7.6875rem] bg-[#022959] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer next-step-btn">next step</button></div>
+<div class="hidden left-0 md:absolute md:bottom-8 md:flex justify-between w-full"><button id="prevBtn-desktop" class="capitalize text-[#9699AA] cursor-pointer hover:text-[#022959] text-[1rem] hidden">go back</button><button></button><button id="next-desktop" class="h-12 w-[7.6875rem] bg-[#022959] hover:bg-[#164A8A] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer next-step-btn">next step</button></div>
 
 </form>
 </section>
-<div class="fixed bg-white left-0 md:hidden bottom-0 h-[4.5rem] flex justify-between items-center px-6 w-full"><button id="prevBtn-mobile" class="capitalize text-[#9699AA] cursor-pointer hover:text-[#022959] text-[1rem] hidden">go back</button><button></button><button id="next-mobile" class="h-12 w-[7.6875rem] bg-[#022959] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer next-step-btn">next step</button></div>
+<div class="fixed bg-white left-0 md:hidden bottom-0 h-[4.5rem] flex justify-between items-center px-6 w-full"><button id="prevBtn-mobile" class="capitalize text-[#9699AA] cursor-pointer hover:text-[#022959] text-[1rem] hidden">go back</button><button></button><button id="next-mobile" class="h-12 w-[7.6875rem] bg-[#022959] hover:bg-[#164A8A] text-white font-medium text-[1rem] uppercase rounded-xl cursor-pointer next-step-btn">next step</button></div>
 
 </section>
 </main>
