@@ -14,8 +14,8 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <ul id="steps" class="step-wrapper px-8 py-10 flex items-center md:items-start justify-center md:flex-col gap-8">
 </ul>
 </div></section>
-<section class="pt-8 pb-8 md:pb-0 px-6 md:px-0 md:pt-12 absolute w-[90%] md:w-full top-[12%] -translate-x-[50%] left-[50%] md:left-0 md:translate-x-0 md:relative rounded-lg bg-white md:bg-transparent md:top-0">
-<form class="h-full">
+<section class="pt-8 pb-8 md:pb-0 px-6 md:px-0 md:pt-12 absolute w-[90%] md:w-full top-[12%] overflow-hidden -translate-x-[50%] left-[50%] md:left-0 md:translate-x-0 md:relative rounded-lg bg-white md:bg-transparent md:top-0">
+<form class="h-full w-full">
 <section class="form-steps" data-step="1">
 <h1 class="text-[#022959] text-2xl md:text-[2rem] font-bold">Personal info</h1>
 <p class="text-[#9699AA] mt-2 text-[1rem] form-text">Please provide your name, email address, and phone number.</p>

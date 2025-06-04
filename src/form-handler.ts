@@ -94,7 +94,7 @@ export function setStep(element: HTMLButtonElement) {
       phoneInput,
       phoneError,
       phoneNumber,
-      "Please enter a valid phone number"
+      "Phone number should be at least 10 digits"
     );
   };
 
@@ -176,7 +176,7 @@ export function setStep(element: HTMLButtonElement) {
           phoneInput,
           phoneError,
           phoneNumber,
-          "Please enter a valid phone number"
+          "Phone number should at least 10 digits"
         );
         return;
       }
@@ -273,6 +273,7 @@ export function setStep(element: HTMLButtonElement) {
         prevBtnMobile.classList.add("hidden");
         nextBtnDesktop.classList.add("hidden");
         nextBtnMobile.classList.add("hidden");
+        nextBtnMobile.parentElement?.classList.add("hidden");
       }
     }
   });
