@@ -90,12 +90,11 @@ export function setStep(element: HTMLButtonElement) {
   const handlePhoneInput = () => {
     const phoneInput = isValidPhoneNumber();
     setIsValidInput(phoneInput, phoneError);
-    updateError(
-      phoneInput,
-      phoneError,
-      phoneNumber,
-      "Phone number should be at least 10 digits"
-    );
+    const message =
+      phoneNumber.value.length !== 0
+        ? "Phone number should be at least 10 digits"
+        : "This field is required";
+    updateError(phoneInput, phoneError, phoneNumber, message);
   };
 
   const handleNameInput = () => {
@@ -170,14 +169,15 @@ export function setStep(element: HTMLButtonElement) {
 
     if (step === 1) {
       if (!emailInput || !phoneInput || !nameInput) {
+        console.log(phoneNumber.value.length);
+        const message =
+          phoneNumber.value.length === 0
+            ? "This field is required"
+            : "Phone number should be at least 10 digits";
+
         updateError(nameInput, nameError, name, "This field is required");
         updateError(emailInput, emailError, email, "This field is required");
-        updateError(
-          phoneInput,
-          phoneError,
-          phoneNumber,
-          "Phone number should at least 10 digits"
-        );
+        updateError(phoneInput, phoneError, phoneNumber, message);
         return;
       }
 
